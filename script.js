@@ -1375,16 +1375,13 @@ function initChart() {
     try {
         const ctx = elements.priceChart.getContext('2d');
         
-        // 간단한 선 차트로 구현
+        // 캔들스틱 차트 설정
         priceChart = new Chart(ctx, {
-            type: 'line',
+            type: 'candlestick',
             data: {
                 datasets: [{
                     label: '가격',
-                    data: [],
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1,
-                    fill: false
+                    data: []
                 }]
             },
             options: {
@@ -1394,7 +1391,10 @@ function initChart() {
                     x: {
                         type: 'time',
                         time: {
-                            unit: 'day'
+                            unit: 'day',
+                            displayFormats: {
+                                day: 'MM/dd'
+                            }
                         },
                         grid: {
                             color: 'rgba(255, 255, 255, 0.1)'
@@ -1422,7 +1422,13 @@ function initChart() {
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return '₩' + context.parsed.y.toLocaleString();
+                                const point = context.raw;
+                                return [
+                                    '시가: ₩' + point.o.toLocaleString(),
+                                    '고가: ₩' + point.h.toLocaleString(),
+                                    '저가: ₩' + point.l.toLocaleString(),
+                                    '종가: ₩' + point.c.toLocaleString()
+                                ];
                             }
                         }
                     }
@@ -1431,12 +1437,56 @@ function initChart() {
         });
     } catch (error) {
         console.error('차트 초기화 오류:', error);
-        // 차트 로드 실패 시 대체 메시지 표시
-        elements.priceChart.parentElement.innerHTML = `
-            <div style="height: 100%; display: flex; justify-content: center; align-items: center; color: var(--text-secondary);">
-                <div>차트를 불러올 수 없습니다. 브라우저를 새로고침하세요.</div>
-            </div>
-        `;
+        
+        // 오류 발생 시 대체 선 차트 생성 시도
+        try {
+            const ctx = elements.priceChart.getContext('2d');
+            priceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: '가격',
+                        data: [],
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(234, 236, 239, 0.7)'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(234, 236, 239, 0.7)',
+                                callback: function(value) {
+                                    return '₩' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        } catch (fallbackError) {
+            console.error('대체 차트 초기화 오류:', fallbackError);
+            // 차트 로드 실패 시 대체 메시지 표시
+            elements.priceChart.parentElement.innerHTML = `
+                <div style="height: 100%; display: flex; justify-content: center; align-items: center; color: var(--text-secondary);">
+                    <div>차트를 불러올 수 없습니다. 브라우저를 새로고침하세요.</div>
+                </div>
+            `;
+        }
     }
 }
 
@@ -1474,14 +1524,28 @@ function updateChart(period) {
                 dataPoints = history.slice(-24);
         }
         
-        // 차트 데이터 변환 (선 차트용)
-        const chartData = dataPoints.map(candle => ({
-            x: candle.time,
-            y: candle.close
-        }));
+        // 차트 타입에 따라 데이터 포맷 변경
+        if (priceChart.config.type === 'candlestick') {
+            // 캔들스틱 차트 데이터 변환
+            const chartData = dataPoints.map(candle => ({
+                x: candle.time,
+                o: candle.open,
+                h: candle.high,
+                l: candle.low,
+                c: candle.close
+            }));
+            
+            priceChart.data.datasets[0].data = chartData;
+        } else {
+            // 선 차트 데이터 변환
+            const chartData = dataPoints.map(candle => ({
+                x: candle.time,
+                y: candle.close
+            }));
+            
+            priceChart.data.datasets[0].data = chartData;
+        }
         
-        // 차트 업데이트
-        priceChart.data.datasets[0].data = chartData;
         priceChart.update();
     } catch (error) {
         console.error('차트 업데이트 오류:', error);
