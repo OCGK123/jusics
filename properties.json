@@ -1,0 +1,257 @@
+[
+    {
+      "id": "prop1",
+      "name": "강남 래미안 아파트",
+      "type": "apartment",
+      "location": "서울 강남구 테헤란로",
+      "size": "84.12㎡",
+      "price": 980000000,
+      "monthlyRent": 2200000,
+      "year": 2015,
+      "description": "강남 중심부에 위치한 프리미엄 아파트입니다. 지하철역과 가깝고, 주변에 편의시설이 잘 갖춰져 있습니다. 최근 리모델링으로 내부 상태가 매우 좋습니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1584738766473-61c083514bf4?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBhcnRtZW50JTIwYnVpbGRpbmd8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFwYXJ0bWVudCUyMGludGVyaW9yfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBhcnRtZW50JTIwaW50ZXJpb3J8ZW58MHx8MHx8fDA%3D"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop2",
+      "name": "송파 롯데캐슬 아파트",
+      "type": "apartment",
+      "location": "서울 송파구 올림픽로",
+      "size": "112.83㎡",
+      "price": 1250000000,
+      "monthlyRent": 2800000,
+      "year": 2018,
+      "description": "롯데월드타워 인근에 위치한 고급 아파트입니다. 탁 트인 전망과 넓은 거실, 최신 시설을 갖추고 있으며, 교통과 쇼핑이 편리합니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1594484208280-efa00f96fc53?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGFwYXJ0bWVudCUyMGJ1aWxkaW5nfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YXBhcnRtZW50JTIwaW50ZXJpb3J8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXBhcnRtZW50JTIwaW50ZXJpb3J8ZW58MHx8MHx8fDA%3D"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop3",
+      "name": "판교 알파리움 오피스텔",
+      "type": "office",
+      "location": "경기 성남시 분당구 판교역로",
+      "size": "59.83㎡",
+      "price": 580000000,
+      "monthlyRent": 1500000,
+      "year": 2020,
+      "description": "판교 테크노밸리 중심부에 위치한 신축 오피스텔입니다. IT 기업들이 밀집한 지역으로 투자 가치가 높습니다. 역세권이며 편의시설이 풍부합니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8b2ZmaWNlfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8b2ZmaWNlfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b2ZmaWNlfGVufDB8fDB8fHww"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop4",
+      "name": "서초 단독주택",
+      "type": "house",
+      "location": "서울 서초구 서초대로",
+      "size": "198.50㎡",
+      "price": 1850000000,
+      "monthlyRent": 3500000,
+      "year": 2010,
+      "description": "서초구 조용한 주택가에 위치한 넓은 단독주택입니다. 정원과 주차공간이 있으며, 프라이버시가 보장됩니다. 최근 내부 인테리어를 새롭게 했습니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdXNlfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG91c2UlMjBpbnRlcmlvcnxlbnwwfHwwfHx8MA%3D%3D",
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGhvdXNlJTIwaW50ZXJpb3J8ZW58MHx8MHx8fDA%3D"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop5",
+      "name": "홍대 상가건물",
+      "type": "commercial",
+      "location": "서울 마포구 홍대입구역",
+      "size": "92.40㎡",
+      "price": 720000000,
+      "monthlyRent": 4500000,
+      "year": 2016,
+      "description": "홍대입구역 인근 유동인구가 많은 상권에 위치한 상가건물입니다. 1층은 카페, 2층은 사무실로 사용 중이며 안정적인 임대수익이 발생합니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1564857757258-0d71b2a9a78f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c3RvcmVmcm9udHxlbnwwfHwwfHx8MA%3D%3D",
+        "https://images.unsplash.com/photo-1581057446153-4905a896805e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGNhZmV8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8b2ZmaWNlJTIwaW50ZXJpb3J8ZW58MHx8MHx8fDA%3D"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop6",
+      "name": "한남동 빌라",
+      "type": "house",
+      "location": "서울 용산구 한남동",
+      "size": "145.22㎡",
+      "price": 1320000000,
+      "monthlyRent": 2900000,
+      "year": 2017,
+      "description": "한남동 고급 주택가에 위치한 모던한 빌라입니다. 남산과 한강 전망이 일품이며, 인테리어가 세련되게 꾸며져 있습니다. 주변 인프라가 우수합니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGhvdXNlfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG91c2UlMjBpbnRlcmlvcnxlbnwwfHwwfHx8MA%3D%3D",
+        "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop7",
+      "name": "분당 파크뷰 아파트",
+      "type": "apartment",
+      "location": "경기 성남시 분당구 정자동",
+      "size": "132.80㎡",
+      "price": 950000000,
+      "monthlyRent": 2100000,
+      "year": 2012,
+      "description": "분당 정자동에 위치한 대단지 아파트입니다. 공원과 인접하여 쾌적한 환경을 자랑하며, 교육 여건이 우수합니다. 편의시설이 단지 내에 잘 갖춰져 있습니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGFwYXJ0bWVudCUyMGJ1aWxkaW5nfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGFwYXJ0bWVudCUyMGludGVyaW9yfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGFwYXJ0bWVudCUyMGludGVyaW9yfGVufDB8fDB8fHww"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop8",
+      "name": "이태원 상가주택",
+      "type": "commercial",
+      "location": "서울 용산구 이태원로",
+      "size": "165.30㎡",
+      "price": 920000000,
+      "monthlyRent": 5200000,
+      "year": 2014,
+      "description": "이태원 메인 도로변에 위치한 복합 상가주택입니다. 1층은 레스토랑으로 임대 중이며, 2-3층은 주거용으로 사용 가능합니다. 외국인 관광객이 많은 지역입니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1633526544662-1a881d58f434?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHJldGFpbCUyMHN0b3JlfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D",
+        "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGFwYXJ0bWVudCUyMGludGVyaW9yfGVufDB8fDB8fHww"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop9",
+      "name": "여의도 오피스텔",
+      "type": "office",
+      "location": "서울 영등포구 여의도동",
+      "size": "45.67㎡",
+      "price": 450000000,
+      "monthlyRent": 1200000,
+      "year": 2019,
+      "description": "여의도 금융가에 위치한 신축 오피스텔입니다. 소형이지만 효율적인 구조로 투자 가치가 높으며, 교통이 편리합니다. 풀 옵션으로 즉시 입주 가능합니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8b2ZmaWNlJTIwYnVpbGRpbmd8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1566805288904-faa336d15646?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHN0dWRpbyUyMGFwYXJ0bWVudHxlbnwwfHwwfHx8MA%3D%3D",
+        "https://images.unsplash.com/photo-1499916078039-922301b0eb83?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YXBhcnRtZW50JTIwaW50ZXJpb3J8ZW58MHx8MHx8fDA%3D"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop10",
+      "name": "광교 신도시 타운하우스",
+      "type": "house",
+      "location": "경기 수원시 영통구 광교",
+      "size": "218.55㎡",
+      "price": 880000000,
+      "monthlyRent": 1800000,
+      "year": 2016,
+      "description": "광교 신도시 중심부에 위치한 타운하우스입니다. 넓은 정원과 테라스가 있으며, 단지 내 커뮤니티 시설이 잘 갖춰져 있습니다. 교육 환경이 우수합니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1549517045-bc93de075e53?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dG93bmhvdXNlfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1600607687644-c7f34b5e8d97?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D",
+        "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8YmFja3lhcmR8ZW58MHx8MHx8fDA%3D"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop11",
+      "name": "강남역 상가건물",
+      "type": "commercial",
+      "location": "서울 강남구 강남대로",
+      "size": "102.30㎡",
+      "price": 1650000000,
+      "monthlyRent": 8500000,
+      "year": 2012,
+      "description": "강남역 인근 메인 도로변에 위치한 수익형 상가건물입니다. 유동인구가 매우 많은 프라임 위치에 있으며, 현재 프랜차이즈 매장이 임대 중입니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1577791465291-6d5b6dc6fa2e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNvbW1lcmNpYWwlMjBidWlsZGluZ3xlbnwwfHwwfHx8MA%3D%3D",
+        "https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHJldGFpbCUyMHN0b3JlfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1549637642-90187f64f420?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3RvcmV8ZW58MHx8MHx8fDA%3D"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop12",
+      "name": "청담동 펜트하우스",
+      "type": "apartment",
+      "location": "서울 강남구 청담동",
+      "size": "245.80㎡",
+      "price": 3200000000,
+      "monthlyRent": 5500000,
+      "year": 2017,
+      "description": "청담동 최고급 주상복합에 위치한 펜트하우스입니다. 한강과 도시 전경이 파노라마로 펼쳐지며, 최고급 마감재와 스마트홈 시스템을 갖추고 있습니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBlbnRob3VzZXxlbnwwfHwwfHx8MA%3D%3D",
+        "https://images.unsplash.com/photo-1550144214-a8b0c335a036?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bHV4dXJ5JTIwaW50ZXJpb3J8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVudGhvdXNlJTIwdmlld3xlbnwwfHwwfHx8MA%3D%3D"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop13",
+      "name": "성수동 창고형 사무실",
+      "type": "commercial",
+      "location": "서울 성동구 성수동",
+      "size": "198.60㎡",
+      "price": 850000000,
+      "monthlyRent": 3800000,
+      "year": 2020,
+      "description": "성수동 핫플레이스에 위치한 창고형 사무실입니다. 높은 층고와 개방감 있는 구조가 특징이며, 트렌디한 기업들이 선호하는 지역입니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1629076064795-93576f34d2a3?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHdhcmVob3VzZSUyMG9mZmljZXxlbnwwfHwwfHx8MA%3D%3D",
+        "https://images.unsplash.com/photo-1600508774634-4e11d34730e2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG9mZmljZSUyMGludGVyaW9yfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8b2ZmaWNlJTIwaW50ZXJpb3J8ZW58MHx8MHx8fDA%3D"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop14",
+      "name": "일산 위시티 아파트",
+      "type": "apartment",
+      "location": "경기 고양시 일산서구",
+      "size": "114.56㎡",
+      "price": 680000000,
+      "monthlyRent": 1600000,
+      "year": 2011,
+      "description": "일산 위시티 대단지 아파트입니다. 쾌적한 환경과 우수한 커뮤니티 시설을 갖추고 있으며, 교통과 쇼핑이 편리합니다. 투자 가치가 높은 지역입니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGFwYXJ0bWVudCUyMGJ1aWxkaW5nfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXBhcnRtZW50JTIwaW50ZXJpb3J8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1595526051245-4506e0005bd0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGFwYXJ0bWVudCUyMGludGVyaW9yfGVufDB8fDB8fHww"
+      ],
+      "purchased": false
+    },
+    {
+      "id": "prop15",
+      "name": "용인 전원주택",
+      "type": "house",
+      "location": "경기 용인시 기흥구",
+      "size": "264.30㎡",
+      "price": 750000000,
+      "monthlyRent": 1300000,
+      "year": 2015,
+      "description": "용인 기흥구 전원단지에 위치한 고급 전원주택입니다. 넓은 정원과 조용한 환경이 매력적이며, 서울 접근성도 좋습니다. 가족 주택으로 안성맞춤입니다.",
+      "images": [
+        "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y291bnRyeSUyMGhvdXNlfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1601084881623-cdf9a8ea242c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y291bnRyeSUyMGhvdXNlfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y291bnRyeSUyMGhvdXNlfGVufDB8fDB8fHww"
+      ],
+      "purchased": false
+    }
+  ]
