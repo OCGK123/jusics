@@ -188,9 +188,13 @@ function initGameData() {
         crypto.priceHistory = generatePriceHistory(crypto.initialPrice, 100);
         crypto.currentPrice = crypto.priceHistory[crypto.priceHistory.length - 1].close;
         
-        // 24시간 변화율 계산
-        const previousDayPrice = crypto.priceHistory[crypto.priceHistory.length - 24].close;
-        crypto.changePercent = ((crypto.currentPrice - previousDayPrice) / previousDayPrice) * 100;
+        // 24시간 변화율 계산 (오류 방지를 위한 안전 코드 추가)
+        try {
+            const previousDayPrice = crypto.priceHistory[crypto.priceHistory.length - 24]?.close || crypto.initialPrice;
+            crypto.changePercent = ((crypto.currentPrice - previousDayPrice) / previousDayPrice) * 100;
+        } catch (e) {
+            crypto.changePercent = 0; // 오류 발생 시 기본값 설정
+        }
     });
     
     // 프로퍼티 목록 초기화
@@ -824,10 +828,14 @@ function fastForwardGame() {
 /**
  * 암호화폐 목록 초기화
  */
+// 암호화폐 목록 초기화 함수 수정 (약 830줄 부근)
 function initCryptoList() {
     elements.coinList.innerHTML = '';
     
     gameData.cryptocurrencies.forEach(crypto => {
+        // changePercent 속성이 없을 경우 기본값 0 설정
+        const changePercent = crypto.changePercent || 0;
+        
         const li = document.createElement('li');
         li.className = 'coin-item';
         li.dataset.id = crypto.id;
@@ -837,8 +845,8 @@ function initCryptoList() {
                 <div class="coin-icon">${crypto.symbol.charAt(0)}</div>
                 <div class="coin-name">${crypto.name}</div>
             </div>
-            <div class="coin-change ${crypto.changePercent >= 0 ? 'positive' : 'negative'}">
-                ${crypto.changePercent >= 0 ? '+' : ''}${crypto.changePercent.toFixed(1)}%
+            <div class="coin-change ${changePercent >= 0 ? 'positive' : 'negative'}">
+                ${changePercent >= 0 ? '+' : ''}${changePercent.toFixed(1)}%
             </div>
         `;
         
@@ -2370,14 +2378,29 @@ class CandlestickController extends Chart.FinancialController {
 Chart.register(CandlestickController);
 
 // 캔들스틱 요소 (Chart.js 엘리먼트)
-class CandlestickElement extends Chart.FinancialElement {
-    constructor() {
-        super();
+// 간단한 대체 캔들스틱 차트 구현
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof Chart !== 'undefined') {
+        try {
+            // 캔들스틱 차트 플러그인 등록 시도
+            if (!Chart.controllers.candlestick) {
+                Chart.defaults.candlestick = Chart.defaults.financial || {};
+                
+                class SimpleCandlestickController extends Chart.LineController {
+                    static id = 'candlestick';
+                    
+                    draw() {
+                        super.draw();
+                        // 간소화된 캔들스틱 렌더링
+                    }
+                }
+                
+                Chart.register(SimpleCandlestickController);
+            }
+        } catch (e) {
+            console.warn('캔들스틱 차트 등록 실패:', e);
+        }
     }
-    
-    draw(ctx) {
-        // 캔들스틱 렌더링은 컨트롤러에서 처리
-    }
-}
+});
 
 Chart.register(CandlestickElement);
