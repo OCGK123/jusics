@@ -5,10 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>파이낸셜 시뮬레이터</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.1.1/dist/chartjs-chart-financial.min.js"></script>
     <link rel="stylesheet" href="style.css">
+        <!-- 차트 라이브러리 정확한 순서로 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.1/dist/chartjs-adapter-moment.min.js"></script>
+    
+    <!-- 캔들스틱 직접 구현 스크립트 -->
+    <script>
+    // 페이지 로드 후 캔들스틱 지원 추가
+    document.addEventListener('DOMContentLoaded', function() {
+        // 캔들스틱 차트 컨트롤러 등록
+        class CandlestickController extends Chart.LineController {
+            draw() {
+                const meta = this.getMeta();
+                const ctx = this.chart.ctx;
+                const points = meta.data || [];
+                
+                points.forEach(point => {
+                    if (!point.active) return;
+                    
+                    // 각 데이터 포인트의 원시 값 가져오기
+                    const raw = point.$context.raw || {};
+                    if (!raw.o || !raw.h || !raw.l || !raw.c) return;
+                    
+                    const x = point.x;
+                    const width = Math.max((meta.data[1]?.x || point.x + 20) - point.x - 2, 5);
+                    
+                    const high = this.getParsed(point._index).h;
+                    const low = this.getParsed(point._index).l;
+                    const open = this.getParsed(point._index).o;
+                    const close = this.getParsed(point._index).c;
+                    
+                    // 스케일 적용
+                    const yScale = this.chart.scales.y;
+                    const highY = yScale.getPixelForValue(high);
+                    const lowY = yScale.getPixelForValue(low);
+                    const openY = yScale.getPixelForValue(open);
+                    const closeY = yScale.getPixelForValue(close);
+                    
+                    // 캔들 색상 (상승/하락)
+                    const color = close >= open ? 'var(--positive-color)' : 'var(--negative-color)';
+                    
+                    ctx.save();
+                    
+                    // 심지 그리기
+                    ctx.beginPath();
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(x, highY);
+                    ctx.lineTo(x, lowY);
+                    ctx.stroke();
+                    
+                    // 캔들 몸통 그리기
+                    ctx.fillStyle = color;
+                    ctx.fillRect(
+                        x - width / 2,
+                        Math.min(openY, closeY),
+                        width,
+                        Math.abs(closeY - openY) || 1
+                    );
+                    
+                    ctx.restore();
+                });
+            }
+        }
+        
+        // 캔들스틱 요소 등록
+        class CandlestickElement extends Chart.LineElement {
+            draw(ctx) {
+                // 실제 그리기는 컨트롤러에서 수행
+            }
+        }
+        
+        // 캔들스틱 차트 등록
+        Chart.register({
+            id: 'candlestick',
+            element: CandlestickElement,
+            controller: CandlestickController,
+            defaults: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        }
+                    }
+                }
+            }
+        });
+    });
+    </script>
 </head>
 <body>
     <!-- 로딩 스크린 -->
