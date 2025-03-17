@@ -1389,13 +1389,6 @@ function initChart() {
                 maintainAspectRatio: false,
                 scales: {
                     x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day',
-                            displayFormats: {
-                                day: 'MM/dd'
-                            }
-                        },
                         grid: {
                             color: 'rgba(255, 255, 255, 0.1)'
                         },
@@ -1422,13 +1415,17 @@ function initChart() {
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                const point = context.raw;
-                                return [
-                                    '시가: ₩' + point.o.toLocaleString(),
-                                    '고가: ₩' + point.h.toLocaleString(),
-                                    '저가: ₩' + point.l.toLocaleString(),
-                                    '종가: ₩' + point.c.toLocaleString()
-                                ];
+                                const point = context.raw || {};
+                                if (point.o !== undefined) {
+                                    return [
+                                        '시가: ₩' + Math.round(point.o).toLocaleString(),
+                                        '고가: ₩' + Math.round(point.h).toLocaleString(),
+                                        '저가: ₩' + Math.round(point.l).toLocaleString(),
+                                        '종가: ₩' + Math.round(point.c).toLocaleString()
+                                    ];
+                                } else {
+                                    return '₩' + Math.round(context.parsed.y).toLocaleString();
+                                }
                             }
                         }
                     }
@@ -1436,34 +1433,30 @@ function initChart() {
             }
         });
     } catch (error) {
-        console.error('차트 초기화 오류:', error);
+        console.error('캔들스틱 차트 초기화 오류:', error);
         
-        // 오류 발생 시 대체 선 차트 생성 시도
+        // 오류 발생 시 대체 선 차트 생성
         try {
             const ctx = elements.priceChart.getContext('2d');
+            console.log('선 차트로 대체합니다.');
+            
             priceChart = new Chart(ctx, {
                 type: 'line',
                 data: {
+                    labels: [],
                     datasets: [{
                         label: '가격',
                         data: [],
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1,
-                        fill: false
+                        borderColor: '#f0b90b',
+                        backgroundColor: 'rgba(240, 185, 11, 0.1)',
+                        fill: true,
+                        tension: 0.1
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        x: {
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: 'rgba(234, 236, 239, 0.7)'
-                            }
-                        },
                         y: {
                             grid: {
                                 color: 'rgba(255, 255, 255, 0.1)'
@@ -1474,16 +1467,29 @@ function initChart() {
                                     return '₩' + value.toLocaleString();
                                 }
                             }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(234, 236, 239, 0.7)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
                         }
                     }
                 }
             });
         } catch (fallbackError) {
             console.error('대체 차트 초기화 오류:', fallbackError);
-            // 차트 로드 실패 시 대체 메시지 표시
+            // 차트 대신 메시지 표시
             elements.priceChart.parentElement.innerHTML = `
                 <div style="height: 100%; display: flex; justify-content: center; align-items: center; color: var(--text-secondary);">
-                    <div>차트를 불러올 수 없습니다. 브라우저를 새로고침하세요.</div>
+                    <div>차트를 불러올 수 없습니다.</div>
                 </div>
             `;
         }
@@ -1524,29 +1530,35 @@ function updateChart(period) {
                 dataPoints = history.slice(-24);
         }
         
-        // 차트 타입에 따라 데이터 포맷 변경
+        // 차트 타입에 따라 데이터 포맷 변환
         if (priceChart.config.type === 'candlestick') {
-            // 캔들스틱 차트 데이터 변환
-            const chartData = dataPoints.map(candle => ({
-                x: candle.time,
+            // 캔들스틱 차트 데이터
+            const chartData = dataPoints.map((candle, index) => ({
                 o: candle.open,
                 h: candle.high,
                 l: candle.low,
-                c: candle.close
+                c: candle.close,
+                x: index // 날짜 대신 인덱스 사용
             }));
             
             priceChart.data.datasets[0].data = chartData;
-        } else {
-            // 선 차트 데이터 변환
-            const chartData = dataPoints.map(candle => ({
-                x: candle.time,
-                y: candle.close
-            }));
             
+        } else {
+            // 선 차트 데이터
+            const chartData = dataPoints.map(candle => candle.close);
+            
+            // 날짜 레이블 생성
+            const labels = dataPoints.map(candle => {
+                const date = new Date(candle.time);
+                return `${date.getMonth()+1}/${date.getDate()}`;
+            });
+            
+            priceChart.data.labels = labels;
             priceChart.data.datasets[0].data = chartData;
         }
         
         priceChart.update();
+        
     } catch (error) {
         console.error('차트 업데이트 오류:', error);
     }
