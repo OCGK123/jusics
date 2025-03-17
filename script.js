@@ -112,11 +112,11 @@ async function initGame() {
         // 게임 데이터 로드
         await loadGameData();
         
-        // UI 초기화
-        initUI();
-        
         // 데이터 초기화
         initGameData();
+        
+        // UI 초기화
+        initUI();
         
         // 이벤트 리스너 설정
         setupEventListeners();
@@ -137,17 +137,145 @@ async function initGame() {
  */
 async function loadGameData() {
     try {
-        // 암호화폐 데이터 로드
-        const cryptoResponse = await fetch('cryptocurrencies.json');
-        gameData.cryptocurrencies = await cryptoResponse.json();
+        // 임시 암호화폐 데이터
+        gameData.cryptocurrencies = [
+            {
+                id: "btc",
+                name: "Bitcoin",
+                symbol: "BTC",
+                initialPrice: 48765000,
+                volatility: 0.04,
+                description: "비트코인은 2009년 사토시 나카모토가 개발한 최초의 암호화폐입니다."
+            },
+            {
+                id: "eth",
+                name: "Ethereum",
+                symbol: "ETH",
+                initialPrice: 5285000,
+                volatility: 0.05,
+                description: "이더리움은 스마트 계약 기능을 갖춘 블록체인 시스템입니다."
+            },
+            {
+                id: "sol",
+                name: "Solana",
+                symbol: "SOL",
+                initialPrice: 290000,
+                volatility: 0.08,
+                description: "솔라나는 고성능 블록체인 네트워크입니다."
+            },
+            {
+                id: "xrp",
+                name: "Ripple",
+                symbol: "XRP",
+                initialPrice: 620,
+                volatility: 0.06,
+                description: "리플은 실시간 총액 결제 시스템입니다."
+            },
+            {
+                id: "ada",
+                name: "Cardano",
+                symbol: "ADA",
+                initialPrice: 750,
+                volatility: 0.07,
+                description: "카르다노는 지속 가능한 블록체인 플랫폼입니다."
+            }
+        ];
         
-        // 부동산 데이터 로드
-        const propertiesResponse = await fetch('properties.json');
-        gameData.properties = await propertiesResponse.json();
+        // 임시 부동산 데이터
+        gameData.properties = [
+            {
+                id: "prop1",
+                name: "강남 래미안 아파트",
+                type: "apartment",
+                location: "서울 강남구 테헤란로",
+                size: "84.12㎡",
+                price: 980000000,
+                monthlyRent: 2200000,
+                year: 2015,
+                description: "강남 중심부에 위치한 프리미엄 아파트입니다.",
+                images: [
+                    "https://images.unsplash.com/photo-1584738766473-61c083514bf4?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+                    "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                ],
+                purchased: false
+            },
+            {
+                id: "prop2",
+                name: "송파 롯데캐슬 아파트",
+                type: "apartment",
+                location: "서울 송파구 올림픽로",
+                size: "112.83㎡",
+                price: 1250000000,
+                monthlyRent: 2800000,
+                year: 2018,
+                description: "롯데월드타워 인근에 위치한 고급 아파트입니다.",
+                images: [
+                    "https://images.unsplash.com/photo-1594484208280-efa00f96fc53?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+                    "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                ],
+                purchased: false
+            },
+            {
+                id: "prop3",
+                name: "판교 알파리움 오피스텔",
+                type: "office",
+                location: "경기 성남시 분당구 판교역로",
+                size: "59.83㎡",
+                price: 580000000,
+                monthlyRent: 1500000,
+                year: 2020,
+                description: "판교 테크노밸리 중심부에 위치한 신축 오피스텔입니다.",
+                images: [
+                    "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+                    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+                    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                ],
+                purchased: false
+            },
+            {
+                id: "prop4",
+                name: "서초 단독주택",
+                type: "house",
+                location: "서울 서초구 서초대로",
+                size: "198.50㎡",
+                price: 1850000000,
+                monthlyRent: 3500000,
+                year: 2010,
+                description: "서초구 조용한 주택가에 위치한 넓은 단독주택입니다.",
+                images: [
+                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+                    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                ],
+                purchased: false
+            },
+            {
+                id: "prop5",
+                name: "홍대 상가건물",
+                type: "commercial",
+                location: "서울 마포구 홍대입구역",
+                size: "92.40㎡",
+                price: 720000000,
+                monthlyRent: 4500000,
+                year: 2016,
+                description: "홍대입구역 인근 유동인구가 많은 상권에 위치한 상가건물입니다.",
+                images: [
+                    "https://images.unsplash.com/photo-1564857757258-0d71b2a9a78f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+                    "https://images.unsplash.com/photo-1581057446153-4905a896805e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+                    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+                ],
+                purchased: false
+            }
+        ];
         
-        // 게임 설정 로드
-        const settingsResponse = await fetch('game-settings.json');
-        gameData.gameSettings = await settingsResponse.json();
+        // 임시 게임 설정
+        gameData.gameSettings = {
+            dayDuration: 5 * 60 * 1000,
+            tenantProbability: 0.7,
+            tenantLeaveProbability: 0.1
+        };
         
         // 게임 설정 적용
         if (gameData.gameSettings) {
@@ -159,6 +287,34 @@ async function loadGameData() {
         console.error('게임 데이터 로드 중 오류 발생:', error);
         throw new Error('게임 데이터를 로드할 수 없습니다.');
     }
+}
+
+/**
+ * 게임 데이터 초기화
+ */
+function initGameData() {
+    // 암호화폐 가격 초기화
+    gameData.cryptocurrencies.forEach(crypto => {
+        crypto.priceHistory = generatePriceHistory(crypto.initialPrice, 100);
+        crypto.currentPrice = crypto.priceHistory[crypto.priceHistory.length - 1].close;
+        
+        // 24시간 변화율 계산
+        try {
+            const previousDayIndex = Math.max(0, crypto.priceHistory.length - 24);
+            const previousDayPrice = crypto.priceHistory[previousDayIndex].close;
+            crypto.changePercent = ((crypto.currentPrice - previousDayPrice) / previousDayPrice) * 100;
+        } catch (e) {
+            crypto.changePercent = 0; // 오류 발생 시 기본값 0
+            console.warn('변화율 계산 중 오류:', e);
+        }
+    });
+    
+    // 프로퍼티 목록 초기화
+    gameData.properties.forEach(property => {
+        property.purchased = false;
+        property.purchaseDate = null;
+        property.tenant = null;
+    });
 }
 
 /**
@@ -177,32 +333,6 @@ function initUI() {
     
     // 차트 초기화
     initChart();
-}
-
-/**
- * 게임 데이터 초기화
- */
-function initGameData() {
-    // 암호화폐 가격 초기화
-    gameData.cryptocurrencies.forEach(crypto => {
-        crypto.priceHistory = generatePriceHistory(crypto.initialPrice, 100);
-        crypto.currentPrice = crypto.priceHistory[crypto.priceHistory.length - 1].close;
-        
-        // 24시간 변화율 계산 (오류 방지를 위한 안전 코드 추가)
-        try {
-            const previousDayPrice = crypto.priceHistory[crypto.priceHistory.length - 24]?.close || crypto.initialPrice;
-            crypto.changePercent = ((crypto.currentPrice - previousDayPrice) / previousDayPrice) * 100;
-        } catch (e) {
-            crypto.changePercent = 0; // 오류 발생 시 기본값 설정
-        }
-    });
-    
-    // 프로퍼티 목록 초기화
-    gameData.properties.forEach(property => {
-        property.purchased = false;
-        property.purchaseDate = null;
-        property.tenant = null;
-    });
 }
 
 /**
@@ -541,10 +671,10 @@ function showDaySummary() {
     
     gameState.notifications.forEach(notification => {
         const li = document.createElement('li');
-        li.className = notification.type;
+        li.className = notification.type || 'info';
         
         const icon = document.createElement('i');
-        icon.className = getNotificationIcon(notification.type);
+        icon.className = getNotificationIcon(notification.type || 'info');
         
         li.appendChild(icon);
         li.appendChild(document.createTextNode(notification.message));
@@ -612,8 +742,14 @@ function updateCryptoPrices() {
         }
         
         // 24시간 변화율 계산
-        const prev24hPrice = crypto.priceHistory[crypto.priceHistory.length - 2].close;
-        crypto.changePercent = ((crypto.currentPrice - prev24hPrice) / prev24hPrice) * 100;
+        try {
+            const prevIndex = Math.max(0, crypto.priceHistory.length - 2);
+            const prev24hPrice = crypto.priceHistory[prevIndex].close;
+            crypto.changePercent = ((crypto.currentPrice - prev24hPrice) / prev24hPrice) * 100;
+        } catch (e) {
+            crypto.changePercent = 0;
+            console.warn('변화율 계산 중 오류:', e);
+        }
         
         // 가격 알림 체크
         checkPriceAlerts(crypto);
@@ -828,12 +964,11 @@ function fastForwardGame() {
 /**
  * 암호화폐 목록 초기화
  */
-// 암호화폐 목록 초기화 함수 수정 (약 830줄 부근)
 function initCryptoList() {
     elements.coinList.innerHTML = '';
     
     gameData.cryptocurrencies.forEach(crypto => {
-        // changePercent 속성이 없을 경우 기본값 0 설정
+        // 안전하게 changePercent 값 확인
         const changePercent = crypto.changePercent || 0;
         
         const li = document.createElement('li');
@@ -1237,65 +1372,72 @@ function selectCoin(crypto) {
  * 차트 초기화
  */
 function initChart() {
-    const ctx = elements.priceChart.getContext('2d');
-    
-    // 차트 설정
-    priceChart = new Chart(ctx, {
-        type: 'candlestick',
-        data: {
-            datasets: [{
-                label: '가격',
-                data: []
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: 'day'
+    try {
+        const ctx = elements.priceChart.getContext('2d');
+        
+        // 간단한 선 차트로 구현
+        priceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: '가격',
+                    data: [],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'rgba(234, 236, 239, 0.7)'
+                        }
                     },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    },
-                    ticks: {
-                        color: 'rgba(234, 236, 239, 0.7)'
-                    }
-                },
-                y: {
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    },
-                    ticks: {
-                        color: 'rgba(234, 236, 239, 0.7)',
-                        callback: function(value) {
-                            return '₩' + value.toLocaleString();
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'rgba(234, 236, 239, 0.7)',
+                            callback: function(value) {
+                                return '₩' + value.toLocaleString();
+                            }
                         }
                     }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
                 },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const data = context.raw;
-                            return [
-                                '시가: ₩' + data.o.toLocaleString(),
-                                '고가: ₩' + data.h.toLocaleString(),
-                                '저가: ₩' + data.l.toLocaleString(),
-                                '종가: ₩' + data.c.toLocaleString()
-                            ];
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '₩' + context.parsed.y.toLocaleString();
+                            }
                         }
                     }
                 }
             }
-        }
-    });
+        });
+    } catch (error) {
+        console.error('차트 초기화 오류:', error);
+        // 차트 로드 실패 시 대체 메시지 표시
+        elements.priceChart.parentElement.innerHTML = `
+            <div style="height: 100%; display: flex; justify-content: center; align-items: center; color: var(--text-secondary);">
+                <div>차트를 불러올 수 없습니다. 브라우저를 새로고침하세요.</div>
+            </div>
+        `;
+    }
 }
 
 /**
@@ -1304,43 +1446,46 @@ function initChart() {
 function updateChart(period) {
     if (!selectedCoin || !priceChart) return;
     
-    let dataPoints = [];
-    const history = selectedCoin.priceHistory;
-    
-    // 기간에 따른 데이터 필터링
-    switch (period) {
-        case '1D':
-            dataPoints = history.slice(-24);
-            break;
-        case '1W':
-            dataPoints = history.slice(-168); // 24 * 7
-            break;
-        case '1M':
-            dataPoints = history.slice(-720); // 24 * 30
-            break;
-        case '3M':
-            dataPoints = history.slice(-2160); // 24 * 90
-            break;
-        case '1Y':
-            dataPoints = history; // 최대 365일 (history에 저장된 경우)
-            break;
-        case 'ALL':
-            dataPoints = history;
-            break;
+    try {
+        let dataPoints = [];
+        const history = selectedCoin.priceHistory || [];
+        
+        // 기간에 따른 데이터 필터링
+        switch (period) {
+            case '1D':
+                dataPoints = history.slice(-24);
+                break;
+            case '1W':
+                dataPoints = history.slice(-7);
+                break;
+            case '1M':
+                dataPoints = history.slice(-30);
+                break;
+            case '3M':
+                dataPoints = history.slice(-90);
+                break;
+            case '1Y':
+                dataPoints = history; // 최대 365일 (history에 저장된 경우)
+                break;
+            case 'ALL':
+                dataPoints = history;
+                break;
+            default:
+                dataPoints = history.slice(-24);
+        }
+        
+        // 차트 데이터 변환 (선 차트용)
+        const chartData = dataPoints.map(candle => ({
+            x: candle.time,
+            y: candle.close
+        }));
+        
+        // 차트 업데이트
+        priceChart.data.datasets[0].data = chartData;
+        priceChart.update();
+    } catch (error) {
+        console.error('차트 업데이트 오류:', error);
     }
-    
-    // 차트 데이터 변환
-    const chartData = dataPoints.map(candle => ({
-        x: candle.time,
-        o: candle.open,
-        h: candle.high,
-        l: candle.low,
-        c: candle.close
-    }));
-    
-    // 차트 업데이트
-    priceChart.data.datasets[0].data = chartData;
-    priceChart.update();
 }
 
 /**
@@ -1749,8 +1894,10 @@ function updateCryptoUI() {
         
         if (crypto) {
             const changeElement = item.querySelector('.coin-change');
-            changeElement.textContent = `${crypto.changePercent >= 0 ? '+' : ''}${crypto.changePercent.toFixed(1)}%`;
-            changeElement.className = `coin-change ${crypto.changePercent >= 0 ? 'positive' : 'negative'}`;
+            // 변화율이 없으면 0으로 처리
+            const changePercent = crypto.changePercent || 0;
+            changeElement.textContent = `${changePercent >= 0 ? '+' : ''}${changePercent.toFixed(1)}%`;
+            changeElement.className = `coin-change ${changePercent >= 0 ? 'positive' : 'negative'}`;
         }
     });
     
@@ -1761,9 +1908,10 @@ function updateCryptoUI() {
         if (crypto) {
             elements.currentCoinPrice.textContent = '₩' + Math.round(crypto.currentPrice).toLocaleString();
             
-            const changeText = `${crypto.changePercent >= 0 ? '+' : ''}${crypto.changePercent.toFixed(1)}%`;
+            const changePercent = crypto.changePercent || 0;
+            const changeText = `${changePercent >= 0 ? '+' : ''}${changePercent.toFixed(1)}%`;
             elements.currentCoinChange.textContent = changeText;
-            elements.currentCoinChange.className = `change ${crypto.changePercent >= 0 ? 'positive' : 'negative'}`;
+            elements.currentCoinChange.className = `change ${changePercent >= 0 ? 'positive' : 'negative'}`;
             
             // 차트 업데이트
             const activeButton = document.querySelector('.chart-options button.active');
@@ -2035,7 +2183,7 @@ function handleFileSelect(event) {
             // 파일 상세 정보 표시
             document.getElementById('load-game-date').textContent = formatDateTime(new Date(saveData.gameState.currentDate));
             document.getElementById('load-total-assets').textContent = '₩' + calculateTotalAssetsFromSave(saveData).toLocaleString();
-            document.getElementById('load-property-count').textContent = saveData.gameState.portfolio.properties.length || '0';
+            document.getElementById('load-property-count').textContent = (saveData.gameState.portfolio.properties?.length || '0');
             
             document.getElementById('load-file-details').classList.add('active');
             document.getElementById('confirm-load-btn').disabled = false;
@@ -2060,28 +2208,33 @@ function handleFileSelect(event) {
  * 저장 파일에서 총 자산 계산
  */
 function calculateTotalAssetsFromSave(saveData) {
-    let total = saveData.gameState.cash || 0;
-    
-    // 암호화폐 자산
-    if (saveData.gameState.portfolio && saveData.gameState.portfolio.crypto) {
-        saveData.gameState.portfolio.crypto.forEach(coin => {
-            const crypto = saveData.gameData.cryptocurrencies.find(c => c.id === coin.id);
-            if (crypto && crypto.currentPrice) {
-                total += coin.amount * crypto.currentPrice;
-            }
-        });
+    try {
+        let total = saveData.gameState.cash || 0;
+        
+        // 암호화폐 자산
+        if (saveData.gameState.portfolio && saveData.gameState.portfolio.crypto) {
+            saveData.gameState.portfolio.crypto.forEach(coin => {
+                const crypto = saveData.gameData.cryptocurrencies.find(c => c.id === coin.id);
+                if (crypto && crypto.currentPrice) {
+                    total += coin.amount * crypto.currentPrice;
+                }
+            });
+        }
+        
+        // 부동산 자산
+        if (saveData.gameData && saveData.gameData.properties) {
+            saveData.gameData.properties.forEach(property => {
+                if (property.purchased) {
+                    total += property.currentPrice || property.purchasePrice || property.price;
+                }
+            });
+        }
+        
+        return total;
+    } catch (error) {
+        console.error('자산 계산 오류:', error);
+        return 0;
     }
-    
-    // 부동산 자산
-    if (saveData.gameData && saveData.gameData.properties) {
-        saveData.gameData.properties.forEach(property => {
-            if (property.purchased) {
-                total += property.currentPrice || property.purchasePrice || property.price;
-            }
-        });
-    }
-    
-    return total;
 }
 
 /**
@@ -2108,41 +2261,43 @@ function loadGame() {
         gameState.maxAssets = saveData.gameState.maxAssets || gameState.cash;
         gameState.lastDayReset = new Date();
         
-        // 암호화폐 데이터 복원
-        gameData.cryptocurrencies = saveData.gameData.cryptocurrencies || [];
-        
-        // 부동산 데이터 복원
-        if (saveData.gameData.properties) {
-            // 기존 부동산 데이터와 병합
-            const savedProperties = saveData.gameData.properties;
-            
-            // 모든 기존 부동산을 hidden으로 표시
-            gameData.properties.forEach(property => {
-                property.hidden = true;
+        // 암호화폐 데이터 복원 (이미 기본값이 있는 경우 병합)
+        if (saveData.gameData && saveData.gameData.cryptocurrencies) {
+            saveData.gameData.cryptocurrencies.forEach(savedCrypto => {
+                const existingCrypto = gameData.cryptocurrencies.find(c => c.id === savedCrypto.id);
+                if (existingCrypto) {
+                    // 기존 코인 데이터에 저장된 데이터 병합
+                    existingCrypto.currentPrice = savedCrypto.currentPrice || existingCrypto.currentPrice;
+                    existingCrypto.priceHistory = savedCrypto.priceHistory || existingCrypto.priceHistory;
+                    existingCrypto.changePercent = savedCrypto.changePercent || 0;
+                } else {
+                    // 새 코인 추가
+                    gameData.cryptocurrencies.push(savedCrypto);
+                }
             });
-            
-            // 저장된 부동산 정보 적용
-            savedProperties.forEach(savedProperty => {
+        }
+        
+        // 부동산 데이터 복원 (이미 기본값이 있는 경우 병합)
+        if (saveData.gameData && saveData.gameData.properties) {
+            saveData.gameData.properties.forEach(savedProperty => {
                 const existingProperty = gameData.properties.find(p => p.id === savedProperty.id);
-                
                 if (existingProperty) {
-                    // 기존 부동산 업데이트
+                    // 기존 부동산 데이터에 저장된 데이터 병합
                     existingProperty.purchased = savedProperty.purchased || false;
                     existingProperty.purchasePrice = savedProperty.purchasePrice;
                     existingProperty.purchaseDate = savedProperty.purchaseDate ? new Date(savedProperty.purchaseDate) : null;
                     existingProperty.currentPrice = savedProperty.currentPrice;
                     existingProperty.tenant = savedProperty.tenant;
-                    existingProperty.hidden = false;
                 } else {
-                    // 신규 부동산 추가
+                    // 새 부동산 추가
                     gameData.properties.push({
                         ...savedProperty,
-                        hidden: false,
                         purchaseDate: savedProperty.purchaseDate ? new Date(savedProperty.purchaseDate) : null
                     });
                 }
             });
         }
+        
         // UI 초기화
         initUI();
         
@@ -2317,90 +2472,3 @@ function formatTime(date) {
 
 // 게임 초기화 및 시작
 document.addEventListener('DOMContentLoaded', initGame);
-
-// 캔들스틱 차트 확장 (Chart.js 플러그인)
-// Chart.js에 캔들스틱 차트 타입 추가
-Chart.defaults.candlestick = Chart.defaults.financial;
-
-class CandlestickController extends Chart.FinancialController {
-    static id = 'candlestick';
-
-    draw() {
-        super.draw();
-        
-        const ctx = this.chart.ctx;
-        const points = this.getMeta().data;
-        
-        points.forEach(point => {
-            const options = this.resolveDataElementOptions(point.index);
-            
-            let color = options.borderColor;
-            if (point.$context.raw.o >= point.$context.raw.c) {
-                color = 'var(--negative-color)'; // 하락봉
-            } else {
-                color = 'var(--positive-color)'; // 상승봉
-            }
-            
-            ctx.save();
-            
-            // 몸통 영역
-            ctx.fillStyle = color;
-            ctx.strokeStyle = color;
-            ctx.lineWidth = 1;
-            
-            let width = options.borderWidth;
-            let left = point.x - width / 2;
-            let right = point.x + width / 2;
-            
-            // 몸통
-            const openY = point.$context.raw.o > point.$context.raw.c ? point.candle.open : point.candle.close;
-            const closeY = point.$context.raw.o > point.$context.raw.c ? point.candle.close : point.candle.open;
-            
-            ctx.fillRect(left, openY, width, closeY - openY);
-            
-            // 위 심지
-            ctx.beginPath();
-            ctx.moveTo(point.x, Math.min(openY, closeY));
-            ctx.lineTo(point.x, point.candle.high);
-            ctx.stroke();
-            
-            // 아래 심지
-            ctx.beginPath();
-            ctx.moveTo(point.x, Math.max(openY, closeY));
-            ctx.lineTo(point.x, point.candle.low);
-            ctx.stroke();
-            
-            ctx.restore();
-        });
-    }
-}
-
-Chart.register(CandlestickController);
-
-// 캔들스틱 요소 (Chart.js 엘리먼트)
-// 간단한 대체 캔들스틱 차트 구현
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof Chart !== 'undefined') {
-        try {
-            // 캔들스틱 차트 플러그인 등록 시도
-            if (!Chart.controllers.candlestick) {
-                Chart.defaults.candlestick = Chart.defaults.financial || {};
-                
-                class SimpleCandlestickController extends Chart.LineController {
-                    static id = 'candlestick';
-                    
-                    draw() {
-                        super.draw();
-                        // 간소화된 캔들스틱 렌더링
-                    }
-                }
-                
-                Chart.register(SimpleCandlestickController);
-            }
-        } catch (e) {
-            console.warn('캔들스틱 차트 등록 실패:', e);
-        }
-    }
-});
-
-Chart.register(CandlestickElement);
