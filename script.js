@@ -1371,32 +1371,43 @@ function selectCoin(crypto) {
 /**
  * 차트 초기화
  */
+/**
+ * 차트 초기화 - 선 차트 사용 (안정적인 방식)
+ */
 function initChart() {
     try {
-        const ctx = elements.priceChart.getContext('2d');
+        // 이전 차트 인스턴스 제거
+        if (priceChart) {
+            priceChart.destroy();
+        }
         
-        // 캔들스틱 차트 설정
+        const ctx = elements.priceChart.getContext('2d');
+        if (!ctx) {
+            console.error('차트 컨텍스트를 가져올 수 없습니다.');
+            return;
+        }
+        
+        // 선 차트 생성 (가장 안정적인 방식)
         priceChart = new Chart(ctx, {
-            type: 'candlestick',
+            type: 'line',
             data: {
+                labels: [],
                 datasets: [{
                     label: '가격',
-                    data: []
+                    data: [],
+                    borderColor: '#f0b90b',
+                    backgroundColor: 'rgba(240, 185, 11, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.1,
+                    fill: true
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    x: {
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        },
-                        ticks: {
-                            color: 'rgba(234, 236, 239, 0.7)'
-                        }
-                    },
                     y: {
+                        beginAtZero: false,
                         grid: {
                             color: 'rgba(255, 255, 255, 0.1)'
                         },
@@ -1406,6 +1417,14 @@ function initChart() {
                                 return '₩' + value.toLocaleString();
                             }
                         }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'rgba(234, 236, 239, 0.7)'
+                        }
                     }
                 },
                 plugins: {
@@ -1413,87 +1432,136 @@ function initChart() {
                         display: false
                     },
                     tooltip: {
+                        mode: 'index',
+                        intersect: false,
                         callbacks: {
                             label: function(context) {
-                                const point = context.raw || {};
-                                if (point.o !== undefined) {
-                                    return [
-                                        '시가: ₩' + Math.round(point.o).toLocaleString(),
-                                        '고가: ₩' + Math.round(point.h).toLocaleString(),
-                                        '저가: ₩' + Math.round(point.l).toLocaleString(),
-                                        '종가: ₩' + Math.round(point.c).toLocaleString()
-                                    ];
-                                } else {
-                                    return '₩' + Math.round(context.parsed.y).toLocaleString();
-                                }
+                                return '₩' + context.parsed.y.toLocaleString();
                             }
                         }
+                    }
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: false
+                },
+                elements: {
+                    point: {
+                        radius: 0, // 포인트 숨기기
+                        hitRadius: 10 // 호버 영역은 유지
                     }
                 }
             }
         });
-    } catch (error) {
-        console.error('캔들스틱 차트 초기화 오류:', error);
         
-        // 오류 발생 시 대체 선 차트 생성
-        try {
-            const ctx = elements.priceChart.getContext('2d');
-            console.log('선 차트로 대체합니다.');
-            
-            priceChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: [],
-                    datasets: [{
-                        label: '가격',
-                        data: [],
-                        borderColor: '#f0b90b',
-                        backgroundColor: 'rgba(240, 185, 11, 0.1)',
-                        fill: true,
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: 'rgba(234, 236, 239, 0.7)',
-                                callback: function(value) {
-                                    return '₩' + value.toLocaleString();
-                                }
-                            }
-                        },
-                        x: {
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: 'rgba(234, 236, 239, 0.7)'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-        } catch (fallbackError) {
-            console.error('대체 차트 초기화 오류:', fallbackError);
-            // 차트 대신 메시지 표시
+        // 캔들스틱 스타일 시각화 추가
+        addCandlestickVisualEffect();
+        
+    } catch (error) {
+        console.error('차트 초기화 오류:', error);
+        if (elements.priceChart && elements.priceChart.parentElement) {
+            // 차트 로드 실패 시 대체 메시지 표시
             elements.priceChart.parentElement.innerHTML = `
                 <div style="height: 100%; display: flex; justify-content: center; align-items: center; color: var(--text-secondary);">
-                    <div>차트를 불러올 수 없습니다.</div>
+                    <div>차트를 불러올 수 없습니다. 브라우저를 새로고침하세요.</div>
                 </div>
             `;
         }
     }
+}
+
+/**
+ * 캔들스틱 시각 효과 추가 - 선 차트 위에 캔들스틱 시각적 표현 추가
+ */
+function addCandlestickVisualEffect() {
+    if (!priceChart || !selectedCoin || !selectedCoin.priceHistory) return;
+    
+    // 캔들스틱 효과를 위한 플러그인 추가
+    const candlestickEffect = {
+        id: 'candlestickEffect',
+        beforeDatasetsDraw: function(chart) {
+            const ctx = chart.ctx;
+            const meta = chart.getDatasetMeta(0);
+            const data = selectedCoin.priceHistory.slice(-chart.data.labels.length);
+            
+            if (!meta.data || meta.data.length === 0 || !data || data.length === 0) return;
+            
+            // 각 데이터 포인트마다 캔들스틱 스타일 그리기
+            meta.data.forEach((point, index) => {
+                if (index >= data.length) return;
+                
+                const candle = data[index];
+                
+                // 가격 값을 픽셀 위치로 변환
+                const xScale = chart.scales.x;
+                const yScale = chart.scales.y;
+                
+                const x = point.x;
+                const width = Math.max(
+                    Math.min(
+                        (meta.data[1]?.x - meta.data[0]?.x) * 0.7 || 10, 
+                        20
+                    ), 
+                    4
+                );
+                
+                const open = yScale.getPixelForValue(candle.open);
+                const close = yScale.getPixelForValue(candle.close);
+                const high = yScale.getPixelForValue(candle.high);
+                const low = yScale.getPixelForValue(candle.low);
+                
+                // 캔들 색상 (상승/하락)
+                const color = candle.close >= candle.open ? 
+                    'var(--positive-color)' : 
+                    'var(--negative-color)';
+                
+                ctx.save();
+                
+                // 심지(위)
+                ctx.beginPath();
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 1;
+                ctx.moveTo(x, Math.min(open, close));
+                ctx.lineTo(x, high);
+                ctx.stroke();
+                
+                // 심지(아래)
+                ctx.beginPath();
+                ctx.moveTo(x, Math.max(open, close));
+                ctx.lineTo(x, low);
+                ctx.stroke();
+                
+                // 캔들 몸통
+                ctx.fillStyle = color;
+                ctx.globalAlpha = 0.7; // 약간 투명하게
+                ctx.fillRect(
+                    x - width / 2,
+                    Math.min(open, close),
+                    width,
+                    Math.abs(close - open) || 1
+                );
+                
+                ctx.restore();
+            });
+        }
+    };
+    
+    // 이미 등록된 플러그인이 있는지 확인
+    const existingPluginIndex = priceChart.options.plugins.customPlugins?.findIndex(
+        p => p.id === 'candlestickEffect'
+    );
+    
+    if (existingPluginIndex >= 0) {
+        priceChart.options.plugins.customPlugins[existingPluginIndex] = candlestickEffect;
+    } else {
+        if (!priceChart.options.plugins.customPlugins) {
+            priceChart.options.plugins.customPlugins = [];
+        }
+        priceChart.options.plugins.customPlugins.push(candlestickEffect);
+    }
+    
+    // 플러그인 등록
+    Chart.register(candlestickEffect);
 }
 
 /**
@@ -1530,34 +1598,24 @@ function updateChart(period) {
                 dataPoints = history.slice(-24);
         }
         
-        // 차트 타입에 따라 데이터 포맷 변환
-        if (priceChart.config.type === 'candlestick') {
-            // 캔들스틱 차트 데이터
-            const chartData = dataPoints.map((candle, index) => ({
-                o: candle.open,
-                h: candle.high,
-                l: candle.low,
-                c: candle.close,
-                x: index // 날짜 대신 인덱스 사용
-            }));
-            
-            priceChart.data.datasets[0].data = chartData;
-            
-        } else {
-            // 선 차트 데이터
-            const chartData = dataPoints.map(candle => candle.close);
-            
-            // 날짜 레이블 생성
-            const labels = dataPoints.map(candle => {
-                const date = new Date(candle.time);
-                return `${date.getMonth()+1}/${date.getDate()}`;
-            });
-            
-            priceChart.data.labels = labels;
-            priceChart.data.datasets[0].data = chartData;
-        }
+        // 날짜 레이블 생성
+        const labels = dataPoints.map(candle => {
+            const date = new Date(candle.time);
+            return `${date.getMonth()+1}/${date.getDate()}`;
+        });
         
+        // 선 차트 데이터 (종가 사용)
+        const chartData = dataPoints.map(candle => candle.close);
+        
+        // 차트 데이터 업데이트
+        priceChart.data.labels = labels;
+        priceChart.data.datasets[0].data = chartData;
+        
+        // 차트 업데이트
         priceChart.update();
+        
+        // 캔들스틱 효과 업데이트
+        addCandlestickVisualEffect();
         
     } catch (error) {
         console.error('차트 업데이트 오류:', error);
