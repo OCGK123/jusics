@@ -1,0 +1,28 @@
+{
+    "version": "1.0",
+    "dayDuration": 300000,
+    "initialCash": 10000000,
+    "loanSettings": {
+      "interestRate": 0.0005,
+      "maxLoanPercent": 0.5,
+      "minRepayPercent": 0.05,
+      "bankruptcyThreshold": 10000000
+    },
+    "propertySettings": {
+      "tenantProbability": 0.7,
+      "tenantLeaveProbability": 0.1,
+      "valueFluctuationRange": [-0.005, 0.015]
+    },
+    "cryptoSettings": {
+      "defaultVolatility": 0.04,
+      "priceUpdateInterval": 86400000
+    },
+    "gameSpeed": {
+      "normal": 1,
+      "fast": 2,
+      "paused": 0
+    },
+    "notifications": {
+      "duration": 5000
+    }
+  }
